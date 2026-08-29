@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夏日清涼爽 AI 應用工作坊資料</title>
+    <style>
+        :root {
+            --primary-color: #2b579a;
+            --primary-hover: #1e3d6b;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e0e0e0;
+            --accent-bg: #f0f4f8;
+            --code-bg: #f4f6f8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        header p {
+            margin: 8px 0 0 0;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Tabs Header */
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tab-btn {
+            background: #f1f3f5;
+            border: none;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #495057;
+        }
+
+        .tab-btn:hover {
+            background: #e9ecef;
+            color: var(--primary-color);
+        }
+
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 5px rgba(43, 87, 154, 0.3);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Table Styling */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+
+        .data-table th, .data-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            text-align: left;
+            vertical-align: top;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .data-table tr:hover {
+            background-color: var(--accent-bg);
+        }
+
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .empty-msg {
+            color: #888;
+            font-style: italic;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .tabs-nav {
+                position: static;
+            }
+            .tab-btn {
+                flex: 1 1 calc(50% - 6px);
+                text-align: center;
+                padding: 8px 10px;
+                font-size: 0.88rem;
+            }
+            .data-table th, .data-table td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>夏日清涼爽 AI 應用工作坊資料</h1>
+        <p>點擊上方分頁切換查看各單元之提示詞（Prompts）及示範連結</p>
+    </header>
+
+    <div class="container">
+        <div class="tabs-nav" id="tabsNav">
+            <button class="tab-btn active" onclick="openTab(event, 'tab-0')">Gemini</button>
+            <button class="tab-btn " onclick="openTab(event, 'tab-1')">QRCode</button>
+            <button class="tab-btn " onclick="openTab(event, 'tab-2')">Gen圖比賽</button>
+            <button class="tab-btn " onclick="openTab(event, 'tab-3')">旅行規劃</button>
+            <button class="tab-btn " onclick="openTab(event, 'tab-4')">創意設計</button>
+            <button class="tab-btn " onclick="openTab(event, 'tab-5')">食譜建議</button>
+            <button class="tab-btn " onclick="openTab(event, 'tab-6')">生活幫手</button>
+            <button class="tab-btn " onclick="openTab(event, 'tab-7')">輔助查考聖經</button>
+            <button class="tab-btn " onclick="openTab(event, 'tab-8')">健康顧問</button>
+            <button class="tab-btn " onclick="openTab(event, 'tab-9')">文字助手</button>
+            <button class="tab-btn " onclick="openTab(event, 'tab-10')">學習支援</button>
+            <button class="tab-btn " onclick="openTab(event, 'tab-11')">工作效率</button>
+        </div>
+
+        <div id="tab-0" class="tab-content active">
+            <h2>Gemini</h2>
+            <table class="data-table">
+                <tr>
+                    <th>Gemini App (iPhone)</th>
+                </tr>
+                <tr>
+                    <td><a href="https://apps.apple.com/us/app/google-gemini/id6477489729" target="_blank" rel="noopener noreferrer">https://apps.apple.com/us/app/google-gemini/id6477489729</a></td>
+                </tr>
+                <tr>
+                    <td>Gemini App (Android)</td>
+                </tr>
+                <tr>
+                    <td><a href="https://play.google.com/store/apps/details?id=com.google.android.apps.bard" target="_blank" rel="noopener noreferrer">https://play.google.com/store/apps/details?id=com.google.android.apps.bard</a></td>
+                </tr>
+                <tr>
+                    <td>Gemini Website</td>
+                </tr>
+                <tr>
+                    <td><a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">https://gemini.google.com/</a></td>
+                </tr>
+                <tr>
+                    <td>夏日清涼爽AI應用工作坊資料</td>
+                </tr>
+                <tr>
+                    <td><a href="https://docs.google.com/spreadsheets/d/1FiKhp44aZzkzJIXughPIv8Lz459wgQJMhg1GD_kFu_I/edit?usp=sharing" target="_blank" rel="noopener noreferrer">https://docs.google.com/spreadsheets/d/1FiKhp44aZzkzJIXughPIv8Lz459wgQJMhg1GD_kFu_I/edit?usp=sharing</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="tab-1" class="tab-content ">
+            <h2>QRCode</h2>
+            <p class="empty-msg">（此頁面暫無內容）</p>
+        </div>
+        <div id="tab-2" class="tab-content ">
+            <h2>Gen圖比賽</h2>
+            <table class="data-table">
+                <tr>
+                    <th>Gen圖比賽</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Example demo:</td>
+                    <td><a href="https://share.gemini.google/bLDHsj9lkZRs" target="_blank" rel="noopener noreferrer">https://share.gemini.google/bLDHsj9lkZRs</a></td>
+                </tr>
+                <tr>
+                    <td>Step 1.</td>
+                    <td>Find and paste a Wing Kwong photo</td>
+                </tr>
+                <tr>
+                    <td>Step 2.</td>
+                    <td>請你幫我修改這張圖, 加入藍天和彩虹, 再加上好多裝飾在建築外牆.</td>
+                </tr>
+                <tr>
+                    <td>Step 3.</td>
+                    <td>Whatsapp to 林牧師</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><a href="https://wa.me/85223399537" target="_blank" rel="noopener noreferrer">https://wa.me/85223399537</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="tab-3" class="tab-content ">
+            <h2>旅行規劃</h2>
+            <table class="data-table">
+                <tr>
+                    <th>旅行規劃：安排行程、搵景點、交通建議 (Everyone)</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Example demo: <a href="https://share.gemini.google/ijwcuIBuJGjf" target="_blank" rel="noopener noreferrer">https://share.gemini.google/ijwcuIBuJGjf</a></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Step 1.</td>
+                    <td>請幫我安排日本九州旅行, 9月19日至9月26日, 全部日子住在博多酒店, 會買北九州五日JR PASS, 請介紹一些觀光景點和行程, 請安排不同地道食物, 每天約八時出發。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Step 2.</td>
+                    <td>我需要一個EXCEL表格，橫向是每一日，直向是當日的日期，星期幾，天氣，當日觀光的地點摘要，7:00-23:00的每個小時（當中顯示安排的交通，用餐，活動時間），酒店，需要的交通劵。這個表格需要詳細資料，如果是交通，請標明開車和到站時間地點，還要在<a href="https://japantravel.navitime.com/zh-tw/area/jp/route" target="_blank" rel="noopener noreferrer">https://japantravel.navitime.com/zh-tw/area/jp/route</a> 核實，如果用餐，請在tabelog website查看評分，不可以少過3.5，還要給我預算價錢和預訂資料，如果是活動，請提意需要的時間。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Step 3.</td>
+                    <td>請幫手做一張行程簡圖，方便我俾家人朋友。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Step 4.</td>
+                    <td>AI有時都會有錯，請用JapanTravel App去核實交通的班次和時間。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>✈️ 旅行規劃：乘搭飛機到日本東京玩幾日 (FRANKIE)</td>
+                    <td></td>
+                    <td>demo</td>
+                </tr>
+                <tr>
+                    <td>說明</td>
+                    <td>以下提示詞適合 AI 初學者，可直接複製到 Gemini 使用。建議先從簡單提示詞開始，再逐步加入日期、航班、住宿、預算及同行者需要，觀察答案有甚麼變化。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>基礎版</td>
+                    <td>我想從香港乘搭飛機到日本東京旅行五日四夜，請建議一個簡單行程。</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>加入詳細條件</td>
+                    <td>我想從香港乘搭飛機到日本東京旅行五日四夜。同行者包括兩位成人，我們喜歡日本美食、文化景點和購物，希望行程輕鬆，每天最多安排三個主要景點。請提供一個行程初稿。</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>指定旅行日期</td>
+                    <td>我計劃在【出發日期】至【回程日期】，從香港乘搭飛機前往日本東京。請根據這個季節的天氣和日照時間提供行程建議，並列出出發前需要核實的事項。</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>讓 AI 先提問</td>
+                    <td>請擔任我的東京旅行規劃助手。我計劃從香港乘搭飛機到東京玩幾日。請先逐一問我最多八條問題，了解旅行日期、日數、同行者、預算、住宿地區、興趣、體力和飲食需要，然後才安排行程。每次只問一條問題。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>整理旅行需要</td>
+                    <td>請根據我的答案，把旅行需要整理成「必須安排」、「最好安排」和「可以省略」三類，並以表格顯示。在我確認之前，暫時不要編排行程。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>航班搜尋</td>
+                    <td>請搜尋【出發日期】從香港國際機場前往東京，以及【回程日期】從東京返回香港的航班。請比較羽田機場和成田機場的選擇，並列出航空公司、航班時間、機場、是否直航、行李條款、估計票價、資料來源及查閱日期。票價和座位可能隨時改變，請提醒我到航空公司官方網站核實。</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>比較東京機場</td>
+                    <td>請比較羽田機場和成田機場，包括前往東京市中心的時間、交通方法、估計費用、轉車次數、深夜到達的方便程度，以及適合哪類旅客。請附上官方資料來源及查閱日期。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>選擇航班時間</td>
+                    <td>如果第一天希望保留半天觀光時間，而最後一天不希望太早起床，請建議合適的去程和回程時段。請同時考慮前往機場、辦理登機和入境所需時間，不要只比較票價。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>行李條款比較</td>
+                    <td>請比較以上航班的手提行李和寄艙行李條款，包括件數、重量、尺寸及附加費。不同票價類別可能有不同條款，未能確認的資料請標示「需要向航空公司核實」。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>住宿地區建議</td>
+                    <td>我們第一次到東京，希望交通方便、晚上容易找餐廳，住宿預算為每晚港幣【金額】。請比較新宿、上野、東京站和淺草四個地區，列出交通、環境、餐飲、前往機場的方便程度及適合的旅客類型，暫時不用推薦個別酒店。</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>酒店搜尋</td>
+                    <td>請搜尋【入住日期】至【退房日期】位於【地區】的住宿，入住人數為【人數】，每晚預算不超過港幣【金額】。請列出最多三個選擇，包括房型、總價、是否含稅、取消條款、與車站距離、資料來源和查閱日期。訂房前仍須到酒店或訂房平台核實。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>酒店比較</td>
+                    <td>請比較以下三間酒店：【酒店A】、【酒店B】和【酒店C】。我們最重視鄰近車站、房間設施、取消安排和前往機場的便利程度。資料不足的項目請標示「未能確認」，不要自行猜測。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>五日四夜行程</td>
+                    <td>請安排一個東京五日四夜行程。第一天和第五天需要乘搭飛機，所以行程要較輕鬆；第二至第四天每天最多安排三個主要景點。請把相近地區安排在同一天，減少折返，並以表格列出時間、景點、交通、停留時間、用餐和注意事項。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>行程範例</td>
+                    <td>請根據以下方向安排東京五日四夜行程：第一天抵達東京及酒店附近活動；第二天參觀淺草和東京晴空塔一帶；第三天遊覽明治神宮、原宿和澀谷；第四天到上野、秋葉原或其他合適地區；第五天退房及前往機場。請檢查行程是否過於緊密，並提供調整建議。</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>第一天安排</td>
+                    <td>我的航班預計在【時間】抵達【羽田／成田】機場，酒店位於【地區】。請考慮入境、領取行李和前往酒店所需時間，安排一個輕鬆的第一天行程。不要安排需要預約或不能遲到的活動。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>最後一天安排</td>
+                    <td>我的回程航班在【時間】從【羽田／成田】機場起飛，酒店位於【地區】。請建議退房、寄存行李、附近活動及前往機場的時間表，並預留充足時間辦理登機手續。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>按地區編排行程</td>
+                    <td>請把淺草、上野、秋葉原、新宿、原宿和澀谷按地理位置分組，建議每天遊覽哪些地區，以減少交通時間和重複折返。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>尋找東京景點</td>
+                    <td>請推薦六個適合第一次到東京旅客的景點，包括歷史文化、現代城市、購物和自然景觀。請列出景點特色、所在地區、建議停留時間、入場費、是否需要預約、官方網站及查閱日期。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>比較景點</td>
+                    <td>請比較東京晴空塔、東京鐵塔和澀谷展望台，列出位置、景觀特色、入場費、開放時間、是否需要預約、交通方法及雨天適合程度。最新資料必須附上官方來源。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>東京交通建議</td>
+                    <td>請向第一次到東京的旅客簡單解釋如何使用JR、東京Metro、都營地下鐵和交通IC卡。請說明轉車、購票和查看月台時要注意甚麼，但車費和路線仍須使用官方網站或地圖核實。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>機場到酒店交通</td>
+                    <td>請比較從【羽田／成田】機場前往【酒店或地區】的交通方法，包括鐵路、機場巴士和的士。請列出路線、轉車次數、預計時間、估計費用、行李便利程度、營運時間及官方資料來源。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>每日交通路線</td>
+                    <td>請根據以上行程，列出每天由酒店出發前往各景點的交通路線，包括車站名稱、路線、轉車站、預計車程和步行時間。請提醒我出發前使用官方交通網站或地圖核實即時路線。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>減少轉車版本</td>
+                    <td>同行者不熟悉日本鐵路系統。請把每天的交通修改為轉車較少、步行較短和容易理解的版本，即使車程稍長也可以。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>交通票券比較</td>
+                    <td>請根據以上行程，比較使用交通IC卡、單程車票及適合旅客的交通票券。請計算前先列出假設，不要假設購買交通套票一定比較便宜，並附上官方來源及查閱日期。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>預算規劃</td>
+                    <td>請為兩位成人的東京五日四夜旅行製作預算表，包括來回機票、酒店、機場交通、市內交通、膳食、景點門票、購物和應急費用。請分開列出每人費用和二人總費用，並清楚標示哪些是估算價格。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>控制預算</td>
+                    <td>我們二人的整體預算為港幣【金額】。請在不刪除主要體驗的情況下調整以上行程，優先考慮公共交通、免費景點及價格合理的餐廳，並說明每項修改大約可以節省多少。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>兌換日圓</td>
+                    <td>請根據我提供的匯率，把以上日圓預算換算成港幣。請列出計算方法，並提醒我實際信用卡匯率、手續費和找換店價格可能不同。【在此輸入匯率】</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>餐廳建議</td>
+                    <td>請在【淺草／上野／新宿／澀谷】附近建議三間適合【人數】的餐廳。我們的預算為每人【金額】日圓，想吃【壽司／拉麵／燒肉／素食】。請列出餐廳位置、價格範圍、營業時間、是否需要預約、資料來源和查閱日期。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>飲食限制</td>
+                    <td>同行者對【致敏食物】有嚴重敏感。請不要保證任何餐廳或菜式一定安全。請列出點餐前需要向餐廳確認的問題，並用日文和繁體中文寫出一段簡單的食物過敏提示。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>雨天後備方案</td>
+                    <td>如果東京旅程其中一天下雨，請為原定的戶外景點提供附近的室內後備方案。請列出位置、交通、入場費、開放時間、是否需要預約和官方資料來源。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>長者友善版本</td>
+                    <td>同行者包括一位長者。請修改以上東京行程，減少步行、樓梯和頻繁轉車，每兩小時安排休息，並優先選擇設有座位、洗手間和升降機的景點。無法確認的無障礙設施請標示「需要核實」。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>親子版本</td>
+                    <td>同行者包括一名【年齡】歲小童。請把東京行程修改為親子版本，每天安排一項兒童友善活動，預留用餐、洗手間和休息時間，並避免太晚回酒店。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>季節調整</td>
+                    <td>我們將於【月份】到東京。請根據一般季節特點，建議衣物、用品及合適活動。天氣預測屬即時資料，請提醒我在出發前再次查看日本官方天氣資訊。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>行李清單</td>
+                    <td>請為東京五日四夜旅行製作行李清單，包括護照和證件、衣物、個人用品、藥物、電子用品、充電設備和雨具。請分為「必須攜帶」、「按需要攜帶」和「出發前確認」。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>日本入境準備</td>
+                    <td>請列出由香港前往日本東京旅遊前需要核實的入境事項，包括護照有效期、簽證或免簽證安排、入境申報、海關要求和旅遊保險。所有資料必須來自日本政府或相關官方網站，並列出查閱日期。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>出發前檢查</td>
+                    <td>請為東京五日四夜旅行製作出發前檢查清單，包括護照、機票、酒店、入境要求、旅遊保險、網絡連線、日圓、信用卡、交通卡、天氣、預約和緊急聯絡資料。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>圖片應用：路線圖</td>
+                    <td>請閱讀這張東京鐵路路線圖，只列出可以清楚確認的車站、路線和轉車資料。看不清楚的內容請標示「無法確認」，不要猜測。我會使用官方交通網站再次核實。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>圖片應用：日文標示</td>
+                    <td>請閱讀這張日文交通指示牌，列出可以清楚確認的車站、出口、月台、方向和警告內容，並翻譯成繁體中文。看不清楚的文字請標示「無法確認」。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>每日行程摘要</td>
+                    <td>請把以上東京五日四夜行程整理成適合在手機查看的簡潔版本。每天列出三個主要活動、交通方法、預約事項、預計費用和一個後備方案。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>搜尋最新資料</td>
+                    <td>請搜尋截至今天有關【東京景點／航班／酒店／交通】的最新資料，包括價格、時間、預約安排、官方網站及查閱日期。不同來源的資料如有衝突，請指出差異，不要自行猜測。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>核實行程</td>
+                    <td>請檢查以上東京五日四夜行程有沒有景點休館、交通時間不足、地區距離太遠、重複折返、行程過密，或沒有預留用餐和休息時間等問題。列出所有需要到官方網站進一步核實的資料。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>航班延誤應變</td>
+                    <td>假設去程航班延誤三小時，請調整第一天行程，取消不重要的活動，並保留前往酒店的安全交通方案。不要安排需要趕路或不能退款的活動。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>行李延誤應變</td>
+                    <td>假設寄艙行李未能與我們同時抵達東京，請列出抵達後的處理步驟，以及第一晚需要購買的基本用品。航空公司申報程序必須以官方指引為準。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>小組挑戰</td>
+                    <td>請為三位教會朋友安排從香港乘搭飛機到東京的五日四夜旅行。每人總預算為港幣8,000元，包括機票、住宿、交通、膳食和景點門票。大家喜歡文化、美食和城市風景，每天最多安排三個主要景點。請先提出需要澄清的問題，再以表格列出航班考慮、住宿地區、每日行程、交通、用餐、預計費用和雨天後備方案。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>追問：航班組</td>
+                    <td>我們最重視合適的航班時間和行李安排。請比較羽田和成田機場，並列出訂票前需要核實的事項。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>追問：行程組</td>
+                    <td>我們最重視景點安排。請把相近地區安排在同一天，每天最多三個主要景點，並避免重複折返。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>追問：交通組</td>
+                    <td>我們最重視交通簡單。請提供轉車較少的路線，清楚列出車站和轉車地點，但提醒我們出發前再查看即時交通資訊。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>追問：預算組</td>
+                    <td>我們最重視控制預算。請把機票、酒店、交通、飲食、門票和應急費用分類，並提出三個節省開支的方法。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>圖片生成</td>
+                    <td>請生成一張 東京五日四夜旅行行程資訊圖，採用溫暖可愛的手繪旅遊手帳插畫風格，版面和旅行行程海報相似。
+
+版面要求：
+
+16:9橫向構圖
+米白色紙張紋理背景
+頂部放置一條手繪絲帶標題：「東京五日四夜之旅」
+下方平均分成五個直立圓角欄目，依次標示：第1天、第2天、第3天、第4天、第5天
+每欄以簡單插畫展示當天行程
+使用手繪虛線、箭嘴、小火車或小巴士，把五天行程連接起來
+四周加入少量旅行裝飾，例如飛機、行李箱、相機、地圖、車票和櫻花
+畫面整齊、留白充足，不要過度擁擠</td>
+                    <td>Y</td>
+                </tr>
+                <tr>
+                    <td>影片生成</td>
+                    <td>請根據以上東京五日四夜行程，生成一段簡短、寫實的旅行預覽影片。依次展示乘搭飛機抵達東京、前往酒店、參觀文化景點、品嘗日本美食、遊覽城市和返回機場。影片使用16:9橫向格式、自然光和輕鬆節奏，不顯示護照、登機證、品牌標誌或個人資料。影片只作視覺示意，不代表目的地的實際情況。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>注意事項</td>
+                    <td>AI提供的機票價格、航班時間、酒店房價、景點開放時間及交通路線可能過時或錯誤，也可能混淆羽田和成田機場。預訂或付款前，必須到航空公司、酒店、景點、交通機構或日本政府的官方網站核實。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>私隱提醒</td>
+                    <td>不要把護照號碼、完整機票、登機證、訂房編號、保險資料、信用卡資料、住宅地址或即時位置上載到AI。如需分析圖片，應先遮蓋姓名、條碼、QR Code和其他個人資料。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>學習重點</td>
+                    <td>AI適合協助整理旅行需要、設計行程初稿、比較機場和提出後備方案，但航班、住宿、入境、天氣及交通資料必須由使用者使用官方來源作最後確認。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Demo:</td>
+                    <td><a href="https://share.gemini.google/XxAyO9ZgGKsQ" target="_blank" rel="noopener noreferrer">https://share.gemini.google/XxAyO9ZgGKsQ</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Video:</td>
+                    <td><a href="https://share.gemini.google/HhEUspUJ3aMr" target="_blank" rel="noopener noreferrer">https://share.gemini.google/HhEUspUJ3aMr</a></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div id="tab-4" class="tab-content ">
+            <h2>創意設計</h2>
+            <table class="data-table">
+                <tr>
+                    <th>創意設計：畫圖、整心意卡、簡單設計 (Everyone)</th>
+                </tr>
+                <tr>
+                    <td>整心意卡</td>
+                </tr>
+                <tr>
+                    <td>Example demo 1:</td>
+                </tr>
+                <tr>
+                    <td>請忘記之前的提示詞, 現在, 幫我設計一張心意卡, 適合印刷用的, 大小是A5 size, 橫向,  1024x718, 卡的內容: 水彩風格 + 可愛貓貓拎住蛋糕和一個心形氣球 + 柔和粉彩色調 + 金色邊線 + 中間留白寫字。</td>
+                </tr>
+                <tr>
+                    <td>1. 心意卡 Prompt 萬能公式</td>
+                </tr>
+                <tr>
+                    <td>建議教學員記住這個組合：[風格/介質] + [核心主角與畫面] + [文字/排版位置] + [配色/氛圍]</td>
+                </tr>
+                <tr>
+                    <td>A. 風格/介質：手繪風、水彩、立體紙雕、3D 黏土、極簡插畫、復古繪本。</td>
+                </tr>
+                <tr>
+                    <td>B. 核心主角：貓咪戴生肖帽、一對老夫婦喝咖啡、滿滿的鬱金香捧花。</td>
+                </tr>
+                <tr>
+                    <td>C. 文字設計：畫面中央留白（用於寫字）、帶有 &quot;Happy Birthday&quot; 的藝術字手寫標籤。</td>
+                </tr>
+                <tr>
+                    <td>D. 配色/氛圍：溫暖柔和的粉彩色系（Pastel）、慶典金屬光澤、明亮活潑。</td>
+                </tr>
+                <tr>
+                    <td>2. 實用案例與提示詞拆解</td>
+                </tr>
+                <tr>
+                    <td>情境 A：溫馨手繪風（適合生日/感謝卡）</td>
+                </tr>
+                <tr>
+                    <td>-Prompt (英文): A warm watercolor greeting card illustration, a cute cat holding a birthday cake with lit candles, soft pastel colors, dreamy atmosphere, blank space in the center for text, high detail.</td>
+                </tr>
+                <tr>
+                    <td>-廣東話拆解：水彩風格 + 可愛貓貓拎住蛋糕 + 柔和粉彩色調 + 中間留白寫字。</td>
+                </tr>
+                <tr>
+                    <td>情境 B：立體紙雕風（適合節慶/高級感卡片）</td>
+                </tr>
+                <tr>
+                    <td>-Prompt (英文): 3D paper cut light box style greeting card, layers of cherry blossom trees and a cozy house, warm ambient lighting, elegant paper texture, clean background.</td>
+                </tr>
+                <tr>
+                    <td>-廣東話拆解：3D 紙雕光影風格 + 櫻花與小屋層次 + 溫暖燈光 + 精緻紙張質感。</td>
+                </tr>
+                <tr>
+                    <td>情境 C：3D 黏土風（適合可愛/兒童/情人節）</td>
+                </tr>
+                <tr>
+                    <td>-Prompt (英文): 3D claymation style greeting card, two cute fluffy bears hugging each other, holding a heart balloon, vibrant colors, soft studio lighting, cute and playful.</td>
+                </tr>
+                <tr>
+                    <td>-廣東話拆解：3D 黏土動畫風格 + 兩隻小熊抱抱拎心型氣球 + 明亮活潑色彩。</td>
+                </tr>
+                <tr>
+                    <td>3. 教學小貼士（避坑指南）</td>
+                </tr>
+                <tr>
+                    <td>-儘量用英文生成：現時大部分 AI 繪圖工具（如 Midjourney、DALL-E 3、Bing Image Creator）對英文提示詞的理解力比中文更精準。</td>
+                </tr>
+                <tr>
+                    <td>-文字處理技巧：AI 經常寫錯英文字或出現「亂碼文字」。教學員兩種解決方法：</td>
+                </tr>
+                <tr>
+                    <td>A.畫圖時留白：提示詞加上 blank card in center for text 或 copyspace，生成的圖留空，再用 Canva / Photopea 加上中文祝福語。</td>
+                </tr>
+                <tr>
+                    <td>B.直接指定簡單英文：如果要 AI 寫字，字數越少越好，並用雙引號包住，例如 with text &quot;Thank You&quot;。</td>
+                </tr>
+            </table>
+        </div>
+        <div id="tab-5" class="tab-content ">
+            <h2>食譜建議</h2>
+            <table class="data-table">
+                <tr>
+                    <th>食譜建議：根據食材提供煮食靈感 (Frankie)</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>以下提示詞適合 AI 初學者，可直接複製到 Gemini 使用。建議先從簡單提示詞開始，再逐步加入條件，觀察答案有甚麼變化。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>1. 基礎版</td>
+                    <td>我家中有雞蛋、番茄、洋蔥和白飯。請建議三款可以用這些食材製作的簡單菜式。</td>
+                </tr>
+                <tr>
+                    <td>2. 加入詳細條件</td>
+                    <td>我家中有雞蛋、番茄、洋蔥和白飯。請建議三款適合兩人晚餐的簡單菜式。每款菜式需在30分鐘內完成，並列出所需材料、分量和烹調步驟。</td>
+                </tr>
+                <tr>
+                    <td>3. 圖片應用</td>
+                    <td>請仔細觀察這張圖片：
+列出你能辨認的所有食材，並指出任何不確定的食材。
+根據這些食材，建議三款適合香港家庭的簡單菜式。
+選出其中一款，提供二人分量、所需材料、調味料、烹調時間及詳細步驟。
+如果需要圖片以外的額外食材，請另外列出。
+請勿假設圖片中有看不清楚的食材。</td>
+                </tr>
+                <tr>
+                    <td>4. 加入詳細條件</td>
+                    <td>我只有電磁爐和電飯煲，請修改食譜。
+請把食譜改為少油、少鹽版本。
+請把步驟寫得更簡單，讓完全沒有煮食經驗的人也能跟隨。
+請設計「兩餸一湯」，供三人享用，並盡量用完圖片中的食材。
+請把需要額外購買的材料整理成購物清單。</td>
+                </tr>
+                <tr>
+                    <td>注意事項</td>
+                    <td>AI 能分析圖片，但也可能看錯、遺漏或自行猜測，所以使用者仍需核實結果。</td>
+                </tr>
+                <tr>
+                    <td>5. 圖片生成</td>
+                    <td>請根據以上食譜，生成一張完成後的菜式示意圖，呈現大概的擺盤和成品外觀。這只供視覺參考，不必與實際製成品完全相同。</td>
+                </tr>
+                <tr>
+                    <td>注意事項</td>
+                    <td>Gemini 能否直接生成圖片，視乎所使用的帳戶、版本及功能是否開放。生成圖片只屬示意，實際成品可能有所不同。</td>
+                </tr>
+                <tr>
+                    <td>6. 影片生成</td>
+                    <td>請根據以上的「【菜式名稱】」食譜，生成一段簡短、寫實的烹調過程示範影片。按正確次序展示主要備料、烹調和上碟步驟。食材、分量、廚具及場景在整段影片中必須保持一致。使用明亮整潔的香港家庭廚房，採用近距離拍攝和自然光，影片比例為16:9。不要展示人物面孔、品牌標誌或畫面文字。影片只作流程示意，實際烹調時應依照文字食譜及食物安全指引。</td>
+                </tr>
+                <tr>
+                    <td>附例參考</td>
+                    <td><a href="https://share.gemini.google/13IO7O8bNkcr" target="_blank" rel="noopener noreferrer">https://share.gemini.google/13IO7O8bNkcr</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="tab-6" class="tab-content ">
+            <h2>生活幫手</h2>
+            <table class="data-table">
+                <tr>
+                    <th>生活幫手：比購物建議、比較產品 (Frankie)</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>說明</td>
+                    <td>以下提示詞適合 AI 初學者，可直接複製到 Gemini 使用。建議先從簡單提示詞開始，再逐步加入預算、用途和個人需要，觀察答案有甚麼變化。</td>
+                </tr>
+                <tr>
+                    <td>基礎版</td>
+                    <td>我想購買一個電熱水壺，請告訴我選購時需要注意甚麼。</td>
+                </tr>
+                <tr>
+                    <td>加入詳細條件</td>
+                    <td>我想購買一個電熱水壺，預算是港幣500元以內，供兩人家庭使用。希望容易清洗、煲水速度快，並具備自動斷電功能。請建議我應注意的規格，暫時不用推薦品牌。</td>
+                </tr>
+                <tr>
+                    <td>讓 AI 先提問</td>
+                    <td>請擔任我的購物助手。我想購買一部平板電腦，但不清楚應該如何選擇。請先逐一問我最多五條問題，了解我的預算、主要用途、螢幕大小、便攜需要和常用軟件，然後才提供建議。每次只問一條問題。</td>
+                </tr>
+                <tr>
+                    <td>整理購物需要</td>
+                    <td>請根據我的答案，把購物條件整理成「必須具備」、「最好具備」和「不需要」三類，並以表格顯示。</td>
+                </tr>
+                <tr>
+                    <td>比較產品</td>
+                    <td>請根據以下資料比較產品A和產品B，不要加入我沒有提供的規格。產品A：售價港幣399元、容量1.5公升、功率1,800瓦、重量1.2公斤、保養期一年。產品B：售價港幣520元、容量1.7公升、功率2,000瓦、重量1.5公斤、保養期兩年。請以表格比較價錢、容量、功率、重量和保養期，並說明兩款產品分別適合哪類使用者。資料不足之處請標示「未有資料」，不要自行猜測。</td>
+                </tr>
+                <tr>
+                    <td>加入個人考慮</td>
+                    <td>我最重視產品重量和保養期。請根據這兩項需要重新分析產品A和產品B，列出各自的優點和缺點，但不要替我作最後決定。</td>
+                </tr>
+                <tr>
+                    <td>預算購物清單</td>
+                    <td>我需要為兩位成人購買一星期的簡單早餐食材，預算為港幣300元。請製作購物清單，包括食材、建議數量、估計價格和可製作的早餐。請以表格顯示，並把總估算控制在預算內。價格只屬估算，請提醒我到商店核實。</td>
+                </tr>
+                <tr>
+                    <td>加入飲食條件</td>
+                    <td>其中一人不吃花生，兩人都希望少糖。請修改以上購物清單，並為不適合的食品提供替代選擇。</td>
+                </tr>
+                <tr>
+                    <td>圖片應用</td>
+                    <td>請仔細觀察這張產品圖片：1. 列出你能清楚讀到的產品名稱、型號、容量、規格、價格和其他資料；2. 看不清楚的內容請標示「無法確認」，不要猜測；3. 說明購買前還需要查證甚麼；4. 根據可確認的資料，分析這件產品可能適合哪些使用者；5. 不要只根據包裝上的宣傳字句判斷產品表現。</td>
+                </tr>
+                <tr>
+                    <td>比較兩張圖片</td>
+                    <td>請比較這兩張產品圖片，只使用圖片中能夠確認的資料。請以表格列出兩款產品的價格、容量、規格、功能及保養資料。看不清楚或圖片沒有顯示的項目，請標示「無法確認」，不要自行補充。</td>
+                </tr>
+                <tr>
+                    <td>搜尋最新產品</td>
+                    <td>請搜尋截至今天在香港可以購買、售價港幣800元以內的氣炸鍋。我最重視容易清潔、安全功能和保養服務。請以表格列出最多三款產品，包括品牌及型號、容量、主要功能、售價、商店、保養期、資料來源連結和查閱日期。找不到的資料請標示「未能確認」。</td>
+                </tr>
+                <tr>
+                    <td>核實搜尋結果</td>
+                    <td>請檢查以上產品資料是否來自官方網站或可靠零售商，並列出購買前仍需核實的事項，包括實際售價、優惠條件、庫存、運費、香港行貨、保養和退換安排。</td>
+                </tr>
+                <tr>
+                    <td>分析產品評論</td>
+                    <td>以下是一些產品評論。請把內容分為「優點」、「缺點」和「需要進一步核實」三類。找出反覆出現的意見，並指出哪些評論只有籠統的稱讚或批評。不要單憑星級或個別評論作出結論。【在此貼上評論】</td>
+                </tr>
+                <tr>
+                    <td>避免衝動購物</td>
+                    <td>我想購買一部新手提電話，但現有電話仍可正常使用。請不要立即推薦產品。請逐一提出五條問題，幫助我分辨這次購買是實際需要還是一時衝動，並協助我設定合理預算。每次只問一條問題。</td>
+                </tr>
+                <tr>
+                    <td>小組挑戰</td>
+                    <td>教會需要購買一部便攜式藍牙喇叭，供約20人的小組活動使用，預算為港幣1,000元。主要在室內使用，偶爾帶到戶外。操作者未必熟悉科技產品。我們重視操作簡單、容易攜帶、電池續航力和香港保養。請先列出五項選購準則，再搜尋最多三款產品並以表格比較。每項資料須附上來源和查閱日期；未能確認的資料請清楚標示。</td>
+                </tr>
+                <tr>
+                    <td>追問：重視價格</td>
+                    <td>我們最重視價格和性價比。請重新排列產品，解釋你的排序準則，並列出價格中可能尚未包括的費用。</td>
+                </tr>
+                <tr>
+                    <td>追問：重視操作</td>
+                    <td>我們最重視操作簡單。請重新比較產品，說明哪一款較適合不熟悉科技產品的人，並列出購買前應在店內實際測試的功能。</td>
+                </tr>
+                <tr>
+                    <td>追問：重視續航</td>
+                    <td>我們最重視音量和電池續航力。請重新比較產品，但不要推測未有可靠資料支持的實際表現。</td>
+                </tr>
+                <tr>
+                    <td>追問：重視保養</td>
+                    <td>我們最重視香港保養及售後服務。請列出每款產品仍需向商店或官方代理查證的保養事項。</td>
+                </tr>
+                <tr>
+                    <td>注意事項</td>
+                    <td>AI 提供的購物資料可能已經過時，也可能混淆相似型號、遺漏隱藏費用，或提供不存在的產品、商店及來源。付款前必須到官方網站或商店核實型號、價格、庫存、保養和退換條款。</td>
+                </tr>
+                <tr>
+                    <td>圖片私隱</td>
+                    <td>上載圖片前，請遮蓋姓名、電話、地址、信用卡資料、會員編號、訂單編號、條碼和 QR Code，並避免上載其他人的面孔。</td>
+                </tr>
+                <tr>
+                    <td>學習重點</td>
+                    <td>AI 適合幫助我們整理需要、建立比較表和提出問題，但不應完全代替使用者核實資料及作出購買決定。</td>
+                </tr>
+            </table>
+        </div>
+        <div id="tab-7" class="tab-content ">
+            <h2>輔助查考聖經</h2>
+            <table class="data-table">
+                <tr>
+                    <th>聖經研究的提示詞例子 (Kenny) 📖</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>單節深入（靈修與微觀研究）：</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>根據通用希臘文，從文學、神學、歷史及牧養角度詳細分析林前 2:15 的作者原意（適量提供可靠權威來源），這節在全書位置中的意義，之後附上三個貼身具體生活例子作應用，最後撰寫禱文總結重點俾能有效具體實踐。</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>經卷宏觀（研經與救恩史架構）：</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>根據通用希臘文，從文學、歷史、神學、輔導及牧養角度分析使徒保羅寫信時原本想向加拉太教會表達的意思（適量提供可靠權威來源），並指出全書的主題、分段（以相同字數的名詞組合平行表達）、鑰節及弧線，附上三個貼身具體的當代應用例子，以神學家的眼光介紹《加拉太書》在聖經救恩歷史中的獨特位置及重要性，最後撰寫總結禱告俾能促進有效具體實踐。</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>主題探討（觀念與詞彙比較）：</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>根據聖經原文，「饒恕」與「寬恕」有何分別？</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>事實檢查（權威註釋書立場）：</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Enduring Word Commentary</td>
+                    <td></td>
+                    <td><a href="https://enduringword.com/commentary/" target="_blank" rel="noopener noreferrer">https://enduringword.com/commentary/</a></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>New English Translation Constable&#x27;s Notes</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><a href="https://netbible.org/bible/Galatians+1" target="_blank" rel="noopener noreferrer">https://netbible.org/bible/Galatians+1</a></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div id="tab-8" class="tab-content ">
+            <h2>健康顧問</h2>
+            <table class="data-table">
+                <tr>
+                    <th>健康顧問 (Wah，William)</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>如需醫療建議或診斷，請諮詢專業人士。</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>獸醫血液報告：異常解析與建議</td>
+                    <td><a href="https://share.gemini.google/ZKbNbEgDagiZ" target="_blank" rel="noopener noreferrer">https://share.gemini.google/ZKbNbEgDagiZ</a></td>
+                </tr>
+                <tr>
+                    <td>生蛇疑問</td>
+                    <td><a href="https://share.gemini.google/H67GiWZCb1qM" target="_blank" rel="noopener noreferrer">https://share.gemini.google/H67GiWZCb1qM</a></td>
+                </tr>
+                <tr>
+                    <td>藥物查詢（抗癌藥)</td>
+                    <td><a href="https://share.gemini.google/KJHIGXtr75s5" target="_blank" rel="noopener noreferrer">https://share.gemini.google/KJHIGXtr75s5</a></td>
+                </tr>
+                <tr>
+                    <td>藥物查詢（腎功能與止痛藥關係)</td>
+                    <td><a href="https://share.gemini.google/qEWLdVIh8GdI" target="_blank" rel="noopener noreferrer">https://share.gemini.google/qEWLdVIh8GdI</a></td>
+                </tr>
+                <tr>
+                    <td>身體鍛練建議</td>
+                    <td><a href="https://share.gemini.google/7Fq5vScWdbfG" target="_blank" rel="noopener noreferrer">https://share.gemini.google/7Fq5vScWdbfG</a></td>
+                </tr>
+                <tr>
+                    <td>跑步訓練建議（跑步紀錄影象）</td>
+                    <td><a href="https://share.gemini.google/DP99h4JC0tsS" target="_blank" rel="noopener noreferrer">https://share.gemini.google/DP99h4JC0tsS</a></td>
+                </tr>
+                <tr>
+                    <td>解釋醫護人員的建議</td>
+                    <td><a href="https://share.gemini.google/q5o4eGB6YfCv" target="_blank" rel="noopener noreferrer">https://share.gemini.google/q5o4eGB6YfCv</a></td>
+                </tr>
+                <tr>
+                    <td>健康飲食提問（關於全麥麵包）</td>
+                    <td><a href="https://share.gemini.google/LxMiCZjp7gA3" target="_blank" rel="noopener noreferrer">https://share.gemini.google/LxMiCZjp7gA3</a></td>
+                </tr>
+                <tr>
+                    <td>健康飲食提問（關於朱古力）</td>
+                    <td><a href="https://share.gemini.google/8sCIkcfd8m0B" target="_blank" rel="noopener noreferrer">https://share.gemini.google/8sCIkcfd8m0B</a></td>
+                </tr>
+                <tr>
+                    <td>健康飲食提問（關於燕麥）</td>
+                    <td><a href="https://share.gemini.google/WOUPA0uNoAVB" target="_blank" rel="noopener noreferrer">https://share.gemini.google/WOUPA0uNoAVB</a></td>
+                </tr>
+                <tr>
+                    <td>治療咳嗽提問</td>
+                    <td><a href="https://share.gemini.google/yvjcczEEgro1" target="_blank" rel="noopener noreferrer">https://share.gemini.google/yvjcczEEgro1</a></td>
+                </tr>
+                <tr>
+                    <td>分辨寒咳熱咳</td>
+                    <td><a href="https://share.gemini.google/cSWDFSlR01KM" target="_blank" rel="noopener noreferrer">https://share.gemini.google/cSWDFSlR01KM</a></td>
+                </tr>
+                <tr>
+                    <td>寒底熱底體質飲食建議</td>
+                    <td><a href="https://share.gemini.google/xVTsecFmRVl5" target="_blank" rel="noopener noreferrer">https://share.gemini.google/xVTsecFmRVl5</a></td>
+                </tr>
+                <tr>
+                    <td>營養補充品選購指南</td>
+                    <td><a href="https://gemini.google.com/share/833160ec687f" target="_blank" rel="noopener noreferrer">https://gemini.google.com/share/833160ec687f</a></td>
+                </tr>
+                <tr>
+                    <td>輕微燙傷處理（相片提問）</td>
+                    <td><a href="https://share.gemini.google/zGtVdhFvm4yZ" target="_blank" rel="noopener noreferrer">https://share.gemini.google/zGtVdhFvm4yZ</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="tab-9" class="tab-content ">
+            <h2>文字助手</h2>
+            <table class="data-table">
+                <tr>
+                    <th>文字助手：寫祝福語、信件、文章、演講稿 (Simon)</th>
+                </tr>
+                <tr>
+                    <td>1. 寫祝福語（以「朋友創業開咖啡館」為例）</td>
+                </tr>
+                <tr>
+                    <td>你輸入給 Gemini 的 Prompt：</td>
+                </tr>
+                <tr>
+                    <td>角色：你是一位情感真摯、文筆優美的文字風格專家。</td>
+                </tr>
+                <tr>
+                    <td>任務：請幫我寫一份祝賀朋友咖啡館開幕的祝福語。</td>
+                </tr>
+                <tr>
+                    <td>要求：</td>
+                </tr>
+                <tr>
+                    <td>1. 提供 2 種風格：一種是適合發社交媒體（IG/FB）的短版本，另一種是適合寫在花籃賀卡上的精簡版。</td>
+                </tr>
+                <tr>
+                    <td>2. 融入「咖啡香味」、「夢想成真」的元素。</td>
+                </tr>
+                <tr>
+                    <td>3. 溫暖、有質感，避免過於公式化的套話。</td>
+                </tr>
+                <tr>
+                    <td>Gemini 的預期輸出：</td>
+                </tr>
+                <tr>
+                    <td>* 社群貼文版（IG/FB）： 「看著你從選豆、試烘到把這間小店一點一滴築起來，空氣裡終於飄滿了屬於你的咖啡香。恭喜你的夢想正式開張！願這間店成為大家忙碌生活裡的避風港，每一杯都流淌著你的用心。祝生意興隆，香氣遠播！☕✨」</td>
+                </tr>
+                <tr>
+                    <td>* 花籃賀卡版（精簡版）： 「萃取熱情，淬鍊夢想。祝咖啡館開幕大吉，客滿香飄！」</td>
+                </tr>
+                <tr>
+                    <td>2. 寫信件（以「向客戶申請延長專案交期」為例）</td>
+                </tr>
+                <tr>
+                    <td>你輸入給 Gemini 的 Prompt：</td>
+                </tr>
+                <tr>
+                    <td>角色：你是一位專業且具溝通技巧的商務郵件專家。</td>
+                </tr>
+                <tr>
+                    <td>任務：請幫我撰寫一封向客戶申請「延長專案交期 3 天」的正式 Email。</td>
+                </tr>
+                <tr>
+                    <td>要求：</td>
+                </tr>
+                <tr>
+                    <td>1. 結構清晰：包含主旨、致歉、說明原因（為了確保品質進行最終測試）、提出新交期與補救方案。</td>
+                </tr>
+                <tr>
+                    <td>2. 語氣態度：禮貌、專業、展現負責任的態度，避免給人推卸責任的感覺。</td>
+                </tr>
+                <tr>
+                    <td>Gemini 的預期輸出：</td>
+                </tr>
+                <tr>
+                    <td>* 主旨：【進度更新與調整申請】[專案名稱] 交付時間調整說明</td>
+                </tr>
+                <tr>
+                    <td>* 內文： 尊貴的 [客戶姓名] 您好， 感謝您一直以來對本專案的支持。目前專案已進入最後收尾階段，為了確保最終交付的成品能達到最高品質標準，我們的團隊正在進行最後一輪的系統穩定度測試。 為了給您最完美的成果，我們希望能將原本的交付日期由 [原定日期] 稍微順延 3 天至 [新交期日期]。在此期間，我們將加強測試範疇，並預先準備好相關的使用手冊。 對於這次時間上的調整，我們深感抱歉，也感謝您的理解與彈性配合。若您有任何疑問，歡迎隨時與我聯繫！ 順頌 時祺 [你的名字/職務]</td>
+                </tr>
+                <tr>
+                    <td>3. 寫文章（以「給職場新人的時間管理指南」為例）</td>
+                </tr>
+                <tr>
+                    <td>你輸入給 Gemini 的 Prompt：</td>
+                </tr>
+                <tr>
+                    <td>角色：你是一位經驗豐富的職場導師兼專欄作家。</td>
+                </tr>
+                <tr>
+                    <td>任務：請幫我撰寫一篇針對職場新人的時間管理文章。</td>
+                </tr>
+                <tr>
+                    <td>要求：</td>
+                </tr>
+                <tr>
+                    <td>1. 標題吸引人：設計一個具有吸引力的文章標題。</td>
+                </tr>
+                <tr>
+                    <td>2. 核心觀點：提出 3 個具體可執行的時間管理建議（使用粗體關鍵字）。</td>
+                </tr>
+                <tr>
+                    <td>3. 語氣風格：鼓勵性強、簡潔流暢，字數控制在 300 字左右。</td>
+                </tr>
+                <tr>
+                    <td>Gemini 的預期輸出：</td>
+                </tr>
+                <tr>
+                    <td>* 標題：告別無意義加班！職場新人必學的 3 個高效時間管理術</td>
+                </tr>
+                <tr>
+                    <td>* 正文： 剛進入職場，總覺得事情做不完、每天都被時間追著跑嗎？其實，高效工作不是靠加班，而是靠方法：</td>
+                </tr>
+                <tr>
+                    <td>1. 確立優先級（吃掉那隻青蛙）：每天上班第一件事，先處理最棘手、最重要的任務，不要把精力耗費在收發郵件等雜事上。</td>
+                </tr>
+                <tr>
+                    <td>2. 實施時間區隔（番茄鐘工作法）：專注工作 25 分鐘，休息 5 分鐘。保持高度專注，能大幅減少拖延。</td>
+                </tr>
+                <tr>
+                    <td>3. 建立定期檢視：下班前花 5 分鐘整理明日待辦事項，讓心態切換回休息狀態。</td>
+                </tr>
+                <tr>
+                    <td>* 時間管理不是要讓你變成機器，而是幫你找回生活的掌控感。從今天開始嘗試一個小改變吧！</td>
+                </tr>
+                <tr>
+                    <td>4. 寫演講稿（以「年會團隊優秀員工獲獎感言」為例）</td>
+                </tr>
+                <tr>
+                    <td>請幫我生成一份關於**「一般人如何用 AI 提升生活與工作效率」**的 PPT 簡報，包含 5 頁投影片內容。</td>
+                </tr>
+                <tr>
+                    <td>設計與內容要求：</td>
+                </tr>
+                <tr>
+                    <td>整體風格：極簡現代風、科技感、圖文並茂</td>
+                </tr>
+                <tr>
+                    <td>內容結構：</td>
+                </tr>
+                <tr>
+                    <td>封面：吸引人的標題與副標題</td>
+                </tr>
+                <tr>
+                    <td>什麼是 AI：用通俗易懂的「數位助手」比喻，避免複雜術語</td>
+                </tr>
+                <tr>
+                    <td>日常生活應用：列舉 3 個貼近生活的場景（如撰寫 Email、規劃旅遊行程、解答生活疑問）</td>
+                </tr>
+                <tr>
+                    <td>核心技巧：提問公式：給出簡單好記的 Prompt（提示詞）撰寫公式（角色 + 背景 + 任務）</td>
+                </tr>
+                <tr>
+                    <td>總結與行動：鼓勵試用的結語與下一步行動建議</td>
+                </tr>
+                <tr>
+                    <td>請直接生成可視化的簡報展示。</td>
+                </tr>
+            </table>
+        </div>
+        <div id="tab-10" class="tab-content ">
+            <h2>學習支援</h2>
+            <table class="data-table">
+                <tr>
+                    <th>學習支援：總結文章、翻譯、解釋概念 (Simon)</th>
+                </tr>
+                <tr>
+                    <td>1. 總結文章（以「AI 對職場的影響」為例）</td>
+                </tr>
+                <tr>
+                    <td>你輸入給 Gemini 的 Prompt：</td>
+                </tr>
+                <tr>
+                    <td>角色：你是一位專業的知識整理專家。</td>
+                </tr>
+                <tr>
+                    <td>任務：請幫我總結以下這段文字。</td>
+                </tr>
+                <tr>
+                    <td>要求：</td>
+                </tr>
+                <tr>
+                    <td>用一句話概括核心觀點。</td>
+                </tr>
+                <tr>
+                    <td>提取 3 個關鍵重點（用列點呈現，並加粗關鍵字）。</td>
+                </tr>
+                <tr>
+                    <td>提供一個簡短的「學習啟示」。</td>
+                </tr>
+                <tr>
+                    <td>文章內容：</td>
+                </tr>
+                <tr>
+                    <td>「人工智慧的普及並不是要取代人類，而是改變工作的本質。重複性高、規則明確的工作（如資料輸入）最容易被自動化；但需要批判性思考、情商與跨領域整合的能力，反而變得更加重要。未來的職場贏家，不是跟 AI 競爭的人，而是懂得善用 AI 工具來提升效率的人。」</td>
+                </tr>
+                <tr>
+                    <td>Gemini 的預期輸出：</td>
+                </tr>
+                <tr>
+                    <td>核心觀點：AI 旨在重塑工作模式而非全面取代人類，懂得協同工具者將成為未來職場贏家。</td>
+                </tr>
+                <tr>
+                    <td>關鍵重點：</td>
+                </tr>
+                <tr>
+                    <td>自動化轉型：重複性高且規則明確的基層工作最易被 AI 替代。</td>
+                </tr>
+                <tr>
+                    <td>不可替代能力：批判性思考、情商與跨領域整合是人類的核心優勢。</td>
+                </tr>
+                <tr>
+                    <td>工具協同：未來競爭力的關鍵在於能否善用 AI 提升個人產出效率。</td>
+                </tr>
+                <tr>
+                    <td>學習啟示：不必焦慮被取代，應專注提升軟實力並學習掌握 AI 工具。</td>
+                </tr>
+                <tr>
+                    <td>2. 語言翻譯與學習（以英文商務情境為例）</td>
+                </tr>
+                <tr>
+                    <td>你輸入給 Gemini 的 Prompt：</td>
+                </tr>
+                <tr>
+                    <td>角色：你是一位精通雙語的語言導師。</td>
+                </tr>
+                <tr>
+                    <td>任務：請將以下英文句子翻譯成繁體中文，並提供學習輔助。</td>
+                </tr>
+                <tr>
+                    <td>要求：</td>
+                </tr>
+                <tr>
+                    <td>自然譯文：提供流暢、符合中文習慣的翻譯。</td>
+                </tr>
+                <tr>
+                    <td>核心詞彙：挑選 2 個關鍵字/短語，附上解釋與例句。</td>
+                </tr>
+                <tr>
+                    <td>句型解析：簡短說明句中的重點文法或用法。</td>
+                </tr>
+                <tr>
+                    <td>待翻譯文字：</td>
+                </tr>
+                <tr>
+                    <td>&quot;We need to pivot our marketing strategy to adapt to changing consumer behaviors.&quot;</td>
+                </tr>
+                <tr>
+                    <td>Gemini 的預期輸出：</td>
+                </tr>
+                <tr>
+                    <td>自然譯文：我們需要調整行銷策略，以因應消費行為的改變。</td>
+                </tr>
+                <tr>
+                    <td>核心詞彙：</td>
+                </tr>
+                <tr>
+                    <td>Pivot (v.)：轉向、改變策略。例句：The company pivoted to online sales during the pandemic.</td>
+                </tr>
+                <tr>
+                    <td>Adapt to (phr.)：適應、順應。例句：Animals must adapt to their environment to survive.</td>
+                </tr>
+                <tr>
+                    <td>句型解析：使用 need to + 動詞原形 表達必要性，並透過 to adapt to...（不定詞片語）來說明調整策略的目的。</td>
+                </tr>
+                <tr>
+                    <td>3. 解釋概念（以經濟學「機會成本」為例）</td>
+                </tr>
+                <tr>
+                    <td>你輸入給 Gemini 的 Prompt：</td>
+                </tr>
+                <tr>
+                    <td>角色：你是一位善於把複雜概念變簡單的資深教師。</td>
+                </tr>
+                <tr>
+                    <td>任務：請向我解釋「機會成本 (Opportunity Cost)」。</td>
+                </tr>
+                <tr>
+                    <td>要求：</td>
+                </tr>
+                <tr>
+                    <td>白話定義：用一兩句話、極度通俗的語言說明。</td>
+                </tr>
+                <tr>
+                    <td>生活比喻：舉一個日常生活中的例子。</td>
+                </tr>
+                <tr>
+                    <td>常見誤區：指出大家最容易搞錯的地方。</td>
+                </tr>
+                <tr>
+                    <td>Gemini 的預期輸出：</td>
+                </tr>
+                <tr>
+                    <td>白話定義：當你做出一個選擇時，所放棄的「其他選擇中價值最高的那一個」，就是你的機會成本。簡單來說就是「為了得到 A，你所犧牲的最大代價」。</td>
+                </tr>
+                <tr>
+                    <td>生活比喻：假設你週六晚上有 2 小時空檔，可以選擇「去兼職賺 $300」或「跟朋友看電影（花費 $300）」。如果你選擇看電影，你的機會成本不只是票錢 $300，還包含了你放棄賺取的 $300 薪水！</td>
+                </tr>
+                <tr>
+                    <td>常見誤區：大家常以為機會成本包含「所有被放棄選項的總和」。其實它只計算被放棄的選項中「價值最高的那一個」，而不是全部加起來。</td>
+                </tr>
+                <tr>
+                    <td>教學建議</td>
+                </tr>
+                <tr>
+                    <td>在課堂上，可以先展示「隨便提問（例如：什麼是機會成本？）」的回答，再展示上述「結構化 Prompt」的回答，學員就能一眼看出後者的答案更有結構、更易吸收！</td>
+                </tr>
+            </table>
+        </div>
+        <div id="tab-11" class="tab-content ">
+            <h2>工作效率</h2>
+            <table class="data-table">
+                <tr>
+                    <th>工作效率：幫手寫電郵、做簡報、資料整理 (Simon)</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>1. 幫手寫電郵（以「催促供應商交付貨品」為例）</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>你輸入給 Gemini 的 Prompt：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>角色：你是一位經驗豐富、語氣堅定且具備商業禮儀的採購經理。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>任務：請幫我撰寫一封催促供應商如期交貨的電子郵件。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>要求：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>1. 主旨清晰：明確標示訂單編號與緊急程度。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2. 內文要點：提醒原定交期（本週五）、說明延遲將影響後續生產，並要求對方在今日下班前回覆最新進度。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3. 語氣掌握：禮貌但立場堅定，展現專業壓迫感。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>待填資訊：訂單號 #HK-2026-08、原交期 8/28</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Gemini 的預期輸出：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 主旨：【緊急/進度確認】訂單 #HK-2026-08 交期確認通知（原定 8/28）</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 內文： [供應商姓名/團隊] 您好， 感謝貴司一直以來的合作。在此特地向您確認訂單 #HK-2026-08 的生產與出貨進度。 根據雙方合約，此批貨物的原定交付日期為 8 月 28 日（本週五）。由於該批原料將直接投入我方下一階段的生產線，若交期有所延誤，將會對整體專案排程造成連帶影響。 請協助確認目前出貨準備是否一切順利。如遭遇任何異常狀況，請於**今日下班前（18:00 前）**回覆此信件並提供最新出貨時程，以便我們預先調配資源。 感謝您的配合與全力支持！ 順頌 商祺 [你的名字/職稱]</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2. 做簡報（以「向管理層匯報 AI 工具導入計劃」為例）</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>你輸入給 Gemini 的 Prompt：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>角色：你是一位精通商業簡報架構的簡報顧問。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>任務：請幫我規劃一份 5 頁（5 Slides）的簡報大綱，主題為「企業導入 AI 工具提升團隊效率提案」。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>要求：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>1. 每頁簡報需包含：標題、頁面核心目的、3-4 個視覺化條列重點。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2. 結構需符合商業邏輯：痛點分析 → 解決方案 → 預期效益 → 實施時程 → 預算需求。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Gemini 的預期輸出：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* Slide 1: 痛點分析 — 為什麼我們需要改變？</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 核心目的：點出團隊目前的效率瓶頸。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 重複性行政工作佔據團隊 35% 時間（如郵件撰寫、資料整理）。 *跨部門溝通資訊同步慢，造成專案交付時程拉長。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 人力成本上升，團隊缺乏時間進行高價值的創新思考。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* Slide 2: 解決方案 — 導入生成式 AI 工作流程</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 核心目的：介紹引進 AI 工具的策略定位。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* AI 助手角色：作為員工輔助工具，而非取代人力。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 應用場景：自動生成初稿、加速數據清洗、自動彙整會議紀錄。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 安全性與合規：選用具備企業級資安防護的 AI 平台。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* Slide 3: 預期效益 — ROI 與產出提升</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 核心目的：用數據說服管理層。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 時間節省：預計每位員工每週節省 5-8 小時常規作業時間。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 產出品質：提升文書與簡報產出的標準化與準確度。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 靈活性：縮短專案啟動至第一版草案（Drafting）的時間達 50%。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* Slide 4: 實施時程 — 三階段落地計畫</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 核心目的：展現可行性與具體規劃。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* Phase 1 (Month 1)：核心團隊種子培訓與資安規範制定。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* Phase 2 (Month 2)：跨部門小規模試行（Pilot Test）與反饋優化。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* Phase 3 (Month 3)：全公司正式上線與建立 Prompt 範本庫。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* Slide 5: 資源與預算 — 授權與培訓成本</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 核心目的：提出明確的 Action Plan 與決策要求。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 軟體帳號授權費用（按月/按人頭計算）。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 內部培訓工作坊與教材製作成本。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* Next Step：請管理層核准 Phase 1 的小規模試行預算。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3. 資料整理（以「將混亂的會議紀錄轉為條列行動清單」為例）</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>你輸入給 Gemini 的 Prompt：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>角色：你是一位極度細心、擅長專案管理的行政總監。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>任務：請幫我整理以下這段混亂的會議逐字稿/筆記。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>要求：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>1. 摘要：用兩句話總結會議核心結論。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2. 決議事項：列出會議達成的所有決議。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3. 行動清單（Action Items）：用表格呈現，包含「待辦事項」、「負責人」、「預計完成日」。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>原始筆記：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>「今天討論了下星期的產品發布會，David 說場地已經定好了是喜來登，但是簡報還沒做完，Mary 說她可以在星期三前把 Slide 完成。另外 John 要負責聯繫媒體，他說行銷稿要先給老闆過目，預計星期二前搞定。對了，現場要有 50 份產品手冊，這個 David 答應星期四印好帶過去。最後決定發布會時間定在下週五早上 10 點。」</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Gemini 的預期輸出：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 會議摘要：產品發布會已確定於下週五上午 10 點於喜來登舉辦，相關簡報、行銷稿及宣傳手冊已分工並排定完成時程。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 核心決議：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 發布會時間：下週五 10:00 AM</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 發布會地點：喜來登酒店</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 行動清單 (Action Items)：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>待辦事項</td>
+                    <td>負責人</td>
+                    <td>預計完成日</td>
+                </tr>
+                <tr>
+                    <td>撰寫行銷稿並送呈老闆審閱</td>
+                    <td>John</td>
+                    <td>下週二</td>
+                </tr>
+                <tr>
+                    <td>完成發布會簡報 (Slide)</td>
+                    <td>Mary</td>
+                    <td>下週三</td>
+                </tr>
+                <tr>
+                    <td>印製 50 份產品宣傳手冊並帶至現場</td>
+                    <td>David</td>
+                    <td>下週四</td>
+                </tr>
+                <tr>
+                    <td>簡報與整合說明摘要</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>1. Gmail 配合方式：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 一鍵匯出（最推薦初學者）：在 Gemini 網頁版產出文章/電郵後，點選回覆框下方的「分享與匯出」按鈕，選擇 「在 Gmail 中建立草稿」，系統會自動跳轉並把主旨與內文填入 Gmail 草稿。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* Gmail 側邊欄 / Help me write：開通 Google Workspace AI 功能後，可在 Gmail 撰寫郵件時直接使用內建的 Gemini 助手協助修稿或回信。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2. Google Slides 配合方式：</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 簡報大綱與講者腳本：讓 Gemini 輸出 Slide 結構，再複製到 Google Slides 套用版型。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* 側邊欄 AI：在 Google Slides 右側欄調用 Gemini 生成文案或 AI 繪圖。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>* Apps Script 自動化（高級技巧）：讓 Gemini 生成一段 Apps Script 程式碼，複製貼到 Google Slides 的「擴充功能 → Apps Script」，即可實現一鍵自動將大綱轉換為多頁簡報。</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>這份簡報已為你準備好，你可以直接在課程中向學員展示這些串接與配合技巧！</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabId) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
